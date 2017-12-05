@@ -1,0 +1,12 @@
+dependencies {
+
+    compile project(':catnip-core')
+
+    compile (
+            "org.springframework.boot:spring-boot-starter-jersey:1.5.7.RELEASE",
+    )
+
+    compile group: 'io.swagger', name: 'swagger-jersey2-jaxrs', version: '1.5.16'
+    compile "org.springframework.boot:spring-boot-starter-web:1.5.7.RELEASE"
+
+}

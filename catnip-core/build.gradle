@@ -1,0 +1,39 @@
+dependencies {
+
+    compile project(':catnip-api')
+
+    compile libraries.'jackson-databind'
+    compile libraries.'commons-io'
+    compile libraries.'slf4j-api'
+    compile libraries.'javax.annotation-api'
+    compile libraries.'spring-core'
+
+    compile (libraries.'spring-webmvc') {
+        exclude group: 'org.springframework', module: 'spring-aop'
+        exclude group: 'org.springframework', module: 'spring-expression'
+    }
+
+    compile (libraries.'swagger-jaxrs') {
+        exclude group: '*'
+    }
+
+    compile (libraries.'swagger-core') {
+        exclude group: '*'
+    }
+
+    compile (libraries.'jersey-server') {
+        exclude group: '*'
+    }
+
+    compile (libraries.'jersey-container-servlet-core') {
+        exclude group: '*'
+    }
+
+    compile libraries.'javax.ws.rs-api'
+    compile (libraries.'jersey-common') {
+        exclude group: '*'
+    }
+
+    compile libraries.jsoup
+    compile libraries.'jackson-jaxrs-json-provider'
+}

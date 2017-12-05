@@ -1,0 +1,58 @@
+ext.versions = [
+
+        "spring": "4.3.12.RELEASE",
+
+        "swagger": "1.5.16",
+        "jersey": "2.25.1",
+
+        "validation-api": "1.1.0.Final",
+        "jackson-annotations": "2.8.9",
+        "jackson-databind": "2.8.10",
+        "jackson-jaxrs-json-provider": "2.8.4",
+
+        "joda-time": "2.9.9",
+        "commons-io": "2.5",
+        "commons-codec": "1.11",
+
+        "javax.ws.rs-api": "2.0.1",
+        "javax.annotation-api": "1.2",
+
+        "slf4j-api": "1.7.25",
+
+        "jsoup": "1.10.3",
+        "jwt": "3.2.0"
+
+]
+
+ext.libraries = [
+
+        "spring-core": "org.springframework:spring-core:${versions.'spring'}",
+        "spring-beans": "org.springframework:spring-beans:${versions.'spring'}",
+        "spring-web": "org.springframework:spring-web:${versions.'spring'}",
+        "spring-webmvc": "org.springframework:spring-webmvc:${versions.'spring'}",
+
+        "swagger-jaxrs": "io.swagger:swagger-jaxrs:${versions.'swagger'}",
+        "swagger-core": "io.swagger:swagger-core:${versions.'swagger'}",
+        "jersey-media-json-jackson": "org.glassfish.jersey.media:jersey-media-json-jackson:${versions.'jersey'}",
+        "jersey-server": "org.glassfish.jersey.core:jersey-server:${versions.'jersey'}",
+        "jersey-container-servlet-core": "org.glassfish.jersey.containers:jersey-container-servlet-core:${versions.'jersey'}",
+        "jersey-common": "org.glassfish.jersey.core:jersey-common:${versions.'jersey'}",
+
+        "javax.ws.rs-api": "javax.ws.rs:javax.ws.rs-api:${versions.'javax.ws.rs-api'}",
+        "javax.annotation-api": "javax.annotation:javax.annotation-api:${versions.'javax.annotation-api'}",
+
+        "validation-api": "javax.validation:validation-api:${versions.'validation-api'}",
+        "jackson-annotations": "com.fasterxml.jackson.core:jackson-annotations:${versions.'jackson-annotations'}",
+        "jackson-databind": "com.fasterxml.jackson.core:jackson-databind:${versions.'jackson-databind'}",
+        "jackson-jaxrs-json-provider": "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:${versions.'jackson-jaxrs-json-provider'}",
+
+        "joda-time": "joda-time:joda-time:${versions.'joda-time'}",
+        "commons-io": "commons-io:commons-io:${versions.'commons-io'}",
+        "commons-codec": "commons-codec:commons-codec:${versions.'commons-codec'}",
+
+        "slf4j-api": "org.slf4j:slf4j-api:${versions.'slf4j-api'}",
+
+        "jsoup": "org.jsoup:jsoup:${versions.jsoup}",
+        "jwt": "com.auth0:java-jwt:${versions.jwt}"
+
+]

@@ -1,0 +1,105 @@
+import java.text.SimpleDateFormat
+
+apply from: 'dependencies.gradle'
+
+allprojects {
+
+    ext {
+
+        vendor = "SYE-INFO"
+
+        makeVersion = { major, minor, patch, build ->
+            def versionBuild = build
+
+            if (versionBuild == null) {
+                Calendar calendar = Calendar.getInstance()
+
+                int year = calendar.get(Calendar.YEAR)
+                int month = calendar.get(Calendar.MONTH) + 1
+                int day = calendar.get(Calendar.DAY_OF_MONTH)
+                int hour = calendar.get(Calendar.HOUR_OF_DAY)
+                int minutes = calendar.get(Calendar.MINUTE)
+
+                versionBuild = "${year}${month}${day}${hour}${minutes}"
+            }
+            "${major}.${minor}.${patch}.${versionBuild}"
+        }
+
+        makeManifest = { project ->
+            return manifest {
+                def buildTimeAndDate = new Date()
+                def buildDate = new SimpleDateFormat('yyyy-MM-dd').format(buildTimeAndDate)
+                def buildTime = new SimpleDateFormat('HH:mm').format(buildTimeAndDate)
+
+                def git_cmd = "git rev-parse HEAD"
+                def git_proc = git_cmd.execute()
+
+                attributes 'SCM-Revision': git_proc.text.trim()
+
+                attributes 'Built-By': System.properties['user.name']
+                attributes 'Created-By': System.properties['java.version'] + " (" + System.properties['java.vendor'] + " " + System.getProperty("java.vm.version") + ")"
+                attributes 'Build-Host': InetAddress.localHost.hostName
+                attributes 'Build-Date': buildDate
+                attributes 'Build-Time': buildTime
+                attributes 'Timestamp': String.valueOf(System.currentTimeMillis())
+
+                // FIXME Should specify the title and version for each sub-project
+                attributes 'Specification-Title': 'Catnip'
+                attributes 'Specification-Version': version
+                attributes 'Specification-Vendor': vendor
+                attributes 'Implementation-Title': project.jar.baseName
+                attributes 'Implementation-Version': version
+                attributes 'Implementation-Vendor': vendor
+                attributes 'provider': 'gradle'
+            }
+        }
+
+    }
+
+    // Just built by jenkins could be get it
+    def buildNumber = System.getenv("BUILD_NUMBER")
+    def jenkinsBuild = null != buildNumber ? buildNumber : "0"
+
+    group 'com.syeinfo'
+//    version makeVersion(1, 0, 0, jenkinsBuild)
+    version '1.0.1.' + jenkinsBuild
+
+    repositories {
+        mavenCentral()
+    }
+
+}
+
+subprojects { subproject ->
+
+    apply plugin:'java-library'
+    apply plugin: 'maven'
+
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+    configurations {
+        all*.exclude group: "org.springframework.boot", module: 'spring-boot-starter-logging'
+        all*.exclude group: "org.glassfish.jersey.media", module: 'jersey-media-json-jackson'
+    }
+
+    task createPom  {
+        doLast {
+            pom {}.writeTo("$buildDir/pom.xml")
+        }
+    }
+
+    jar {
+        manifest {
+            from makeManifest({subproject})
+        }
+
+        dependsOn createPom
+        into("META-INF/maven/$project.group/$project.name") {
+            from("$buildDir/pom.xml")
+        }
+    }
+
+}

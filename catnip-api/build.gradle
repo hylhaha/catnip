@@ -1,0 +1,11 @@
+dependencies {
+
+    compile project(':catnip-utils')
+    compile libraries.'validation-api'
+    compile libraries.'jackson-annotations'
+
+    compile (libraries.'spring-beans') {
+        exclude group: "commons-logging"
+    }
+
+}

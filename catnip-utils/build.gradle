@@ -1,0 +1,5 @@
+dependencies {
+    compile libraries.'joda-time'
+    compile libraries.'commons-codec'
+    compile libraries.jwt
+}

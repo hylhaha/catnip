@@ -1,0 +1,6 @@
+rootProject.name = 'catnip'
+include 'catnip-api'
+include 'catnip-utils'
+include 'catnip-core'
+include 'catnip-tester'
+
